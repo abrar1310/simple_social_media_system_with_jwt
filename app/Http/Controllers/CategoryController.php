@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Traits\ApiResponseTrait;
 
 class CategoryController extends Controller
 {
@@ -69,4 +71,12 @@ class CategoryController extends Controller
         Category::destroy($id);
         return response()->json(null, 204);
     }
+
+    public function showAllCategories($id){
+        $item = Category::find($id);
+        if($item){
+            return $this->apiResponse(new CategoryResource($item),'kkk',200);
+        }
+            return $this->apiResponse(null,'AAA',404);
+        }
 }

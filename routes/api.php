@@ -62,3 +62,10 @@ Route::get('/comments/{id}', [CommentController::class, 'show']);
 Route::put('/comments/{id}', [CommentController::class, 'update']);
 Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 Route::get('/comments/{id}/edit', [CommentController::class, 'edit']);
+
+
+
+Route::middleware(['jwt.verify'])->group(function(){
+Route::get('/showposts/{id}',[PostController::class,'showAll']);
+Route::get('/showcategories/{id}',[CategoryController::class,'showAllCategories']);
+});

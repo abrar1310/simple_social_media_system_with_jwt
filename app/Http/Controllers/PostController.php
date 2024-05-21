@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Resources\PostResource;
+use App\Http\Traits\ApiResponseTrait;
 
 class PostController extends Controller
 {
@@ -69,4 +71,12 @@ class PostController extends Controller
         Post::destroy($id);
         return response()->json(null, 204);
     }
+
+    public function showAll($id){
+        $item = Post::find($id);
+        if($item){
+            return $this->apiResponse(new PostResource($item),'kkk',200);
+        }
+            return $this->apiResponse(null,'AAA',404);
+        }
 }
